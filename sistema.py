@@ -27,10 +27,18 @@ def cadastrar():
     nome = f.le_nome.text()
     idade = f.le_idade.text()
     telefone = f.le_telefone.text()
+    sexo = ''
+
+    if f.rb_masculino.isChecked():
+        sexo = 'Masculino'
+    elif f.rb_feminino.isChecked():
+        sexo = 'Feminino'
+    
+    turno = f.cb_selecionar.currentText()
 
     cursor = conexao.cursor()
-    sql = "insert into tb_voluntario (nome, idade, telefone) values (%s, %s, %s)"
-    entrada = (str(nome),str(idade),str(telefone))
+    sql = "insert into tb_voluntario (nome, idade, telefone, sexo, turno) values (%s, %s, %s, %s, %s)"
+    entrada = (str(nome),str(idade),str(telefone), str(sexo), str(turno))
     cursor.execute(sql, entrada)
     conexao.commit()
     limpar()
@@ -52,6 +60,8 @@ def listar():
         lis.list_nome.addItem(str(linha[1]))
         lis.list_idade.addItem(str(linha[2]))
         lis.list_telefone.addItem(str(linha[3]))
+        lis.list_sexo.addItem(str(linha[4]))
+        lis.list_turno.addItem(str(linha[5]))
     conexao.commit()
 
         
